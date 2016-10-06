@@ -3,7 +3,25 @@
  */
 'use strict';
 
-var app = angular.module("MyFirstApp", []);
-app.controller("MyFirstController", function ($scope) {
+ angular.module("MyFirstApp", [])
+.controller("MyFirstController", function ($scope) {
     $scope.name = "André";
+    $scope.newComment = {};
+    $scope.comments = [
+        {
+            comment:":D",
+            username : "André"
+        },
+        {
+            comment:":C",
+            username:"Unknown"
+        }
+    ];
+
+    $scope.addComment = function () {
+        $scope.comments.push($scope.newComment);
+        $scope.newComment = {};
+
+    };
+
 });
