@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ToDoList3">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="controller.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title>To Do List with Factories</title>
+</head>
+<body ng-controller="ToDoListController">
+<div class="col-md-6-12 text-md-center ">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="activity in todo">
+            <h2>{{activity.desc}}</h2>
+            <p>{{activity.date | date : 'short'}}</p>
+            <button class="btn bg-danger" ng-click="removeActivity(activity)">Delete</button>
+        </li>
+    </ul>
+
+    <form ng-submit="addActivity()">
+        <input type="text" ng-model="newAct.desc" title="text">
+        <input type="datetime-local" ng-model="newAct.date" title="date">
+        <input type="submit" value="Save">
+    </form>
+    <button ng-click="cleanActivity()">Clean</button>
+</div>
+</body>
+</html>
+
