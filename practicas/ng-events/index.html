@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <script src="../../bower_components/angular/angular.min.js"></script>
+    <style>
+        .hover {
+            background-color: darkred;
+
+        }
+        .no-over{
+            background-color: tomato;
+        }
+    </style>
+    <title>NG-Events</title>
+</head>
+<body ng-app>
+<button ng-mouseover="flag = true" ng-mouseleave="flag=false" ng-class="{'hover':flag, 'no-over':!flag}">Hover me</button>
+</body>
+<strong ng-show="flag">Click me Please</strong>
+<p>
+    {{flag | json}}
+</p>
+</html>
