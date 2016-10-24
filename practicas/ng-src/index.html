@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="../../bower_components/angular/angular.min.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../bower_components/jquery-ui/themes/base/all.css">
     <script src="controller.js"></script>
     <title>Ng-Src</title>
     <style>
@@ -12,14 +15,25 @@
             height: 100px;
             display: inline-block;
         }
+
+        .no-list li {
+            list-style-type: none;
+        }
+        body,html{
+            text-align: center;
+            background-color: #EEEEEE;
+            margin: 0;
+        }
     </style>
 </head>
 <body ng-controller="AppCtrl">
+<input type="text" my-autocomplete="repos" title="finder" placeholder="My repo">
 <ul class="no-list" ng-cloak>
-    <li ng-repeat="repo in repos">
+    <li ng-repeat="repo in posts" ng-hide="main_repo && main_repo != repo.name">
         <div class="circle" back-img="{{repo.owner.avatar_url}}"></div>
         <h1> {{repo.name}} </h1>
     </li>
 </ul>
+<button class="ui-button" ng-show="main_repo" ng-click="main_repo = null">Clean</button>
 </body>
 </html>
