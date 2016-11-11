@@ -1,9 +1,8 @@
 /**
- * Created by Andre on 16/10/2016.
+ * Created by Andre on 27/10/2016.
  */
 'use strict';
-
-angular.module("CustomDirective", [])
+angular.module("CustomDirective")
     .directive('myAutocomplete', function () {
 
         function link(scope, element, attrs) {
@@ -38,25 +37,4 @@ angular.module("CustomDirective", [])
                 });
             });
         }
-    })
-    .controller("AppCtrl", ["$scope", "$http", function ($scope, $http) {
-        $scope.repos = [];
-        $http.get("https://api.github.com/users/pumpersonda/repos")
-            .success(function (data) {
-                $scope.posts = data;
-                for (var i = data.length - 1; i >= 0; i--) {
-                    var repo = data[i];
-                    $scope.repos.push(repo.name);
-                }
-            })
-            .error(function (err) {
-                console.log(err);
-            });
-
-        $scope.optionSelected = function (value) {
-            $scope.$apply(function () {
-                $scope.main_repo = value;
-
-            })
-        }
-    }]);
+    });
