@@ -5,7 +5,7 @@
 (function () {
     'use strict';
     angular.
-    module("FinalApp",["lumx","ngRoute"])
+    module("FinalApp",['lumx','ngRoute','ngResource'])
         .config(routeConfig);
 
     routeConfig.$inject = ['$routeProvider'];

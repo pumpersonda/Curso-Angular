@@ -9,8 +9,11 @@
         .module("FinalApp")
         .controller('MainController',MainController);
 
-    MainController.$inject = ['$scope'];
-    function MainController($scope){
-        $scope.name= "andre;"
+    MainController.$inject = ['$scope','$resource'];
+    function MainController($scope,$resource) {
+        var Post = $resource('https://jsonplaceholder.typicode.com/posts/:id', {id: "@id"});
+        var Users = $resource('https://jsonplaceholder.typicode.com/users/:id', {id: "@id"});
+        $scope.posts = Post.query();
+        $scope.users = Users.query();
     }
 }());
