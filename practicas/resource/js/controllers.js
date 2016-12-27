@@ -4,31 +4,55 @@
 
 
 (function () {
- 'use strict';
+    'use strict';
     angular
         .module("FinalApp")
-        .controller('MainController',MainController)
-        .controller('PostController',PostController);
+        .controller('MainController', MainController)
+        .controller('PostController', PostController)
+        .controller('NewPostController', NewPostController);
 
-    MainController.$inject = ['$scope','$resource'];
-    function MainController($scope,$resource) {
-        var Post = $resource('https://jsonplaceholder.typicode.com/posts/:id', {id: "@id"});
+    MainController.$inject = ['$scope', '$resource','PostResource'];
+    PostController.$inject = ['$scope', '$routeParams', 'PostResource','$location'];
+    NewPostController.$inject = ['$scope', 'PostResource','$location'];
+
+
+    function MainController($scope, $resource,PostResource) {
+
         var Users = $resource('https://jsonplaceholder.typicode.com/users/:id', {id: "@id"});
-        $scope.posts = Post.query();
+        $scope.posts = PostResource.query();
         $scope.users = Users.query();
 
         $scope.removePost = function (post) {
 
-            Post.delete({id:post.id});
+            PostResource.delete({id: post.id});
 
             $scope.posts = $scope.posts.filter(function (element) {
                 return element.id !== post.id;
             });
         }
     }
-    PostController.$inject = ['$scope','$routeParams','$resource'];
-    function PostController($scope,$routeParams,$resource){
-        var Post = $resource('https://jsonplaceholder.typicode.com/posts/:id', {id: "@id"});
-        $scope.post = Post.get({id:$routeParams.id});
+
+    function PostController($scope, $routeParams, PostResource,$location) {
+        $scope.title = 'Editar Post';
+        $scope.post = PostResource.get({id: $routeParams.id});
+        $scope.savePost = function () {
+            PostResource.update({id:$scope.post.id},{data: $scope.post}, function (data) {
+                console.log(data)
+                $location.path('/');
+            });
+        }
+    }
+
+    function NewPostController($scope, PostResource,$location) {
+        $scope.title = 'Crear Post';
+
+        $scope.post = {};
+        $scope.savePost = function () {
+            PostResource.save({data: $scope.post}, function (data) {
+                console.log(data)
+                $location.path('/');
+            });
+        }
+
     }
 }());
